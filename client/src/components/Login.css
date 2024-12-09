@@ -1,0 +1,63 @@
+/* Estilo general */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+  }
+  
+  /* Contenedor principal */
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+  }
+  
+  /* Título */
+  .login-title {
+    font-size: 2.5rem;
+    color: #00796b;
+    margin-bottom: 30px;
+  }
+  
+  /* Contenedor de botones */
+  .button-container {
+    display: flex;
+    gap: 20px;
+  }
+  
+  /* Botones */
+  .role-button {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+  }
+  
+  /* Botón Doctor */
+  .doctor-button {
+    background-color: #0288d1;
+    color: #fff;
+  }
+  
+  .doctor-button:hover {
+    background-color: #01579b;
+    transform: scale(1.1);
+  }
+  
+  /* Botón Paciente */
+  .paciente-button {
+    background-color: #8bc34a;
+    color: #fff;
+  }
+  
+  .paciente-button:hover {
+    background-color: #558b2f;
+    transform: scale(1.1);
+  }
+  
