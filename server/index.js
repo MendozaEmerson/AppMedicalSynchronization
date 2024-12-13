@@ -346,6 +346,6 @@ app.get("/paciente/:dni", (req, res) => {
 });
 
 // ===== SERVIDOR =====
-app.listen(3001, () => {
+app.listen(3001, '0.0.0.0', () => {
   console.log("Servidor corriendo en el puerto 3001");
 });
