@@ -85,7 +85,7 @@ function PacienteForm() {
 
   return (
     <div className="paciente-form-container">
-      <h2 className="form-title">Gestión de Pacientes</h2>
+      <h2 className="form-title">Gestión de Informacion</h2>
       <div className="formulario">
         <div className="form-group">
           <label>DNI:</label>

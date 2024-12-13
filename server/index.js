@@ -25,7 +25,7 @@ const db2 = mysql.createConnection({
 
 // ===== CRUD PARA EMPLEADOS =====
 
-// CREATE para empleados
+// CREATE para doctores
 app.post("/create", (req, res) => {
   const { dni, apellidoPaterno, apellidoMaterno, nombre, edad, diagnostico } = req.body;
 
