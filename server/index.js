@@ -12,7 +12,7 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "290720mendoza*",
-  database: "empleados"
+  database: "HospitalDB"
 });
 
 // Conexión a la base de datos pacientes
@@ -20,14 +20,14 @@ const db2 = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "290720mendoza*",
-  database: "pacientes"
+  database: "ServiciosMedicos"
 });
 
-// ===== CRUD PARA EMPLEADOS =====
+// ===== CRUD PARA Paciente de HopitalDB =====
 
 // CREATE para doctores
 app.post("/create", (req, res) => {
-  const { dni, apellidoPaterno, apellidoMaterno, nombre, edad, diagnostico } = req.body;
+  const { nombre, edad, dni, apellidoPaterno, apellidoMaterno, diagnostico } = req.body;
 
   db.beginTransaction(err => {
     if (err) {
@@ -37,8 +37,8 @@ app.post("/create", (req, res) => {
     }
 
     db.query(
-      'INSERT INTO empleados(dni, apellidoPaterno, apellidoMaterno, nombre, edad, diagnostico) VALUES (?, ?, ?, ?, ?, ?)',
-      [dni, apellidoPaterno, apellidoMaterno, nombre, edad, diagnostico],
+      'INSERT INTO paciente(nombre, edad, dni, apellidoPaterno, apellidoMaterno,  diagnostico) VALUES (?, ?, ?, ?, ?, ?)',
+      [nombre, edad, dni, apellidoPaterno, apellidoMaterno, diagnostico],
       (err, result) => {
         if (err) {
           return db.rollback(() => {
@@ -78,7 +78,7 @@ app.post("/create", (req, res) => {
 // UPDATE para empleados
 app.put("/update/:dni", (req, res) => {
   const dni = req.params.dni;
-  const { apellidoPaterno, apellidoMaterno, nombre, edad, diagnostico } = req.body;
+  const { nombre, edad, apellidoPaterno, apellidoMaterno, diagnostico } = req.body;
 
   db.beginTransaction(err => {
     if (err) {
@@ -88,8 +88,8 @@ app.put("/update/:dni", (req, res) => {
     }
 
     db.query(
-      'UPDATE empleados SET apellidoPaterno = ?, apellidoMaterno = ?, nombre = ?, edad = ?, diagnostico = ? WHERE dni = ?',
-      [apellidoPaterno, apellidoMaterno, nombre, edad, diagnostico, dni],
+      'UPDATE paciente SET nombre = ?, edad = ?, apellidoPaterno = ?, apellidoMaterno = ?, diagnostico = ? WHERE dni = ?',
+      [nombre, edad, apellidoPaterno, apellidoMaterno, diagnostico, dni],
       (err, result) => {
         if (err) {
           return db.rollback(() => {
@@ -137,7 +137,7 @@ app.delete("/delete/:dni", (req, res) => {
       return;
     }
 
-    db.query('DELETE FROM empleados WHERE dni = ?', [dni], (err, result) => {
+    db.query('DELETE FROM paciente WHERE dni = ?', [dni], (err, result) => {
       if (err) {
         return db.rollback(() => {
           console.log(err);
@@ -172,7 +172,7 @@ app.delete("/delete/:dni", (req, res) => {
 app.get("/patient/:dni", (req, res) => {
   const dni = req.params.dni;
 
-  db.query("SELECT * FROM empleados WHERE dni = ?", [dni], (err, result) => {
+  db.query("SELECT * FROM paciente WHERE dni = ?", [dni], (err, result) => {
     if (err) {
       console.log(err);
       res.status(500).send("Error al buscar el paciente en empleados.");
@@ -184,7 +184,7 @@ app.get("/patient/:dni", (req, res) => {
   });
 });
 
-// ===== CRUD PARA PACIENTES =====
+// ===== CRUD PARA PACIENTES de ServiciosMedicos =====
 
 // CREATE para pacientes
 app.post("/create2", (req, res) => {
@@ -209,8 +209,8 @@ app.post("/create2", (req, res) => {
         }
 
         db.query(
-          'INSERT INTO empleados(dni, apellidoPaterno, apellidoMaterno, nombre, edad, diagnostico) VALUES (?, ?, ?, ?, ?, ?)',
-          [dni, apellidoPaterno, apellidoMaterno, nombre, edad, null],
+          'INSERT INTO paciente(nombre, edad, dni, apellidoPaterno, apellidoMaterno, diagnostico) VALUES (?, ?, ?, ?, ?, ?)',
+          [nombre, edad, dni, apellidoPaterno, apellidoMaterno, null],
           (err2, result2) => {
             if (err2) {
               return db2.rollback(() => {
@@ -260,8 +260,8 @@ app.put("/update2/:dni", (req, res) => {
         }
 
         db.query(
-          'UPDATE empleados SET apellidoPaterno = ?, apellidoMaterno = ?, nombre = ?, edad = ? WHERE dni = ?',
-          [apellidoPaterno, apellidoMaterno, nombre, edad, dni],
+          'UPDATE paciente SET nombre = ?, edad = ?, apellidoPaterno = ?, apellidoMaterno = ? WHERE dni = ?',
+          [nombre, edad, apellidoPaterno, apellidoMaterno, dni],
           (err2, result2) => {
             if (err2) {
               return db2.rollback(() => {
@@ -306,7 +306,7 @@ app.delete("/delete2/:dni", (req, res) => {
         });
       }
 
-      db.query('DELETE FROM empleados WHERE dni = ?', [dni], (err2, result2) => {
+      db.query('DELETE FROM paciente WHERE dni = ?', [dni], (err2, result2) => {
         if (err2) {
           return db2.rollback(() => {
             console.log(err2);
